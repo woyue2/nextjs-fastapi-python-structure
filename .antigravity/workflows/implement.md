@@ -2,10 +2,13 @@
 description: 代码实现 — 功能开发 或 Bug 修复（精准实现，最小副作用）
 ---
 
+> 🧠 **依赖 Skill**：本工作流自动激活 `impl_quality` Skill。
+> 实现结束后**无需单独调用 `/review` 或 `/sync_doc`**，品味自检 + GEB 文档检查已内联。
+
 ## 用途
 
 接在 `/design` 推荐方案确认后执行。
-目标：按设计方案精准实现，保持最小副作用，每处改动有据可查。
+目标：按设计方案精准实现，最小副作用，实现完成时**同步输出质量检查报告**（内联 review + sync_doc）。
 
 ---
 
@@ -211,7 +214,24 @@ CommandLine: git diff --name-only HEAD
   2. [期望结果]
   3. [如何判断成功]
 
-下一步: /sync_doc → /git_commit
+---
+🔍【内联质量检查报告】（由 impl_quality Skill 自动执行）
+
+代码品味:
+  □/✅ 函数长度(≤20行)   □/✅ 嵌套深度(≤3层)   □/✅ 分支数(≤3个)
+  □/✅ 重复代码           □/✅ 命名质量           □/✅ 副作用隔离
+
+后端规范（如涉及 backend/）:
+  □/✅ 路由层无业务逻辑   □/✅ 日志结构化(无裸print)   □/✅ 异常有堆栈
+
+GEB 文档:
+  FATAL: □ 001 □ 002 □ 003 □ 004  → [全通过 / 编号拦截]
+  SEVERE: □ 001 □ 002 □ 003 □ 004 → [全通过 / 编号需修复]
+
+已同步文档: [列表或"无变化"]
+---
+
+下一步: /git_commit（review + sync_doc 已内联完成）
 ```
 
 ---
@@ -232,6 +252,11 @@ CommandLine: git diff --name-only HEAD
 ## 与其他工作流的关系
 
 ```
-功能开发链:  analyze → design → implement（功能模式）→ sync_doc → git_commit
-Bug 修复链:  debug   → design → implement（修复模式）→ sync_doc → git_commit
+功能开发链（优化后 4 回合）:
+  analyze → design → implement（功能模式，内联 review+sync_doc）→ git_commit
+
+Bug 修复链（优化后 4 回合）:
+  debug → design → implement（修复模式，内联 review+sync_doc）→ git_commit
+
+注：/review 和 /sync_doc 工作流保留，可在需要单独执行时手动调用。
 ```
