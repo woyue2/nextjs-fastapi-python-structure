@@ -3,7 +3,7 @@ name: oop_phase
 description: |
   面向对象三期约束 Skill。
   根据项目当前所处阶段（探索期/增长期/冻结期），自动调整设计决策的约束强度。
-  内置进实现行为，无需每次手动粘贴提示词。
+  通过 /design Step 0 显式加载后生效。
 ---
 
 # OOP Phase Skill — 三期设计约束

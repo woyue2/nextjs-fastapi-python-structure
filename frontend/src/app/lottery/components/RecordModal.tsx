@@ -3,6 +3,7 @@
 // [INPUT]     isOpen: boolean, onClose: () => void, records: WinRecord[]
 // [OUTPUT]    中奖记录列表弹窗
 // [POS]       frontend/src/app/lottery/components/RecordModal.tsx
+// [PROTOCOL]  变更时更新此头部，然后检查 frontend/CLAUDE.md
 // [DEPS]      framer-motion, store
 // ==============================================================
 'use client';

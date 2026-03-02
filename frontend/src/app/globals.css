@@ -2,23 +2,217 @@
 @import 'tailwindcss';
 
 /* =============================================
-   LOTTERY — 节日主题全局 CSS 变量
+   LOTTERY — 主题系统 · 6 套全局 CSS 主题变量
    ============================================= */
-:root {
-  --lottery-red: #C0392B;
-  --lottery-red-dark: #8B0000;
-  --lottery-red-light: #E74C3C;
-  --lottery-gold: #F4C430;
-  --lottery-gold-dark: #D4A017;
-  --lottery-gold-light: #FFD700;
-  --lottery-white: #FFF8EE;
-  --lottery-shadow: 0 0 20px rgba(244, 196, 48, 0.6);
-  --lottery-glow: 0 0 30px rgba(244, 196, 48, 0.9), 0 0 60px rgba(244, 196, 48, 0.4);
-  --lottery-cell-bg: rgba(255, 255, 255, 0.08);
-  --lottery-cell-border: rgba(244, 196, 48, 0.5);
-  --lottery-active-bg: linear-gradient(135deg, #F4C430, #FF8C00);
+
+/* ── 主题 1：传统佳节（红金） ── */
+:root,
+[data-theme="festival"] {
+  --bg-gradient: radial-gradient(ellipse at top, #CC0000 0%, #8B0000 50%, #4A0000 100%);
+  --bg-deco-1: rgba(244, 196, 48, 0.08);
+  --bg-deco-2: rgba(244, 196, 48, 0.08);
+  --bg-deco-3: rgba(139, 0, 0, 0.3);
+
+  --accent: #F4C430;
+  --accent-dark: #D4A017;
+  --accent-light: #FFD700;
+  --accent-glow: rgba(244, 196, 48, 0.6);
+  --accent-glow2: rgba(244, 196, 48, 0.9);
+
+  --text-primary: #FFF8EE;
+  --text-secondary: rgba(255, 248, 238, 0.65);
+  --text-muted: rgba(255, 248, 238, 0.4);
+  --text-inverse: #5A2D00;
+
+  --card-bg: rgba(0, 0, 0, 0.25);
+  --card-border: rgba(244, 196, 48, 0.25);
+  --card-border-subtle: rgba(244, 196, 48, 0.15);
+  --cell-bg: rgba(255, 255, 255, 0.08);
+  --cell-border: rgba(244, 196, 48, 0.5);
+  --cell-active: linear-gradient(135deg, #F4C430, #FF8C00);
+
+  --btn-primary-bg: linear-gradient(135deg, #F4C430, #FF8C00);
+  --btn-primary-shadow: rgba(244, 196, 48, 0.45);
+  --btn-secondary-bg: rgba(255, 255, 255, 0.12);
+  --btn-secondary-border: rgba(244, 196, 48, 0.3);
+
+  --shadow: 0 0 20px rgba(244, 196, 48, 0.6);
+  --glow: 0 0 30px rgba(244, 196, 48, 0.9), 0 0 60px rgba(244, 196, 48, 0.4);
 }
 
+/* ── 主题 2：墨金之夜（黑金奢华） ── */
+[data-theme="obsidian"] {
+  --bg-gradient: radial-gradient(ellipse at 30% 20%, #1a1400 0%, #0d0d0d 45%, #050505 100%);
+  --bg-deco-1: rgba(212, 175, 55, 0.06);
+  --bg-deco-2: rgba(212, 175, 55, 0.04);
+  --bg-deco-3: rgba(30, 20, 0, 0.5);
+
+  --accent: #D4AF37;
+  --accent-dark: #9E7C1A;
+  --accent-light: #F0CC5A;
+  --accent-glow: rgba(212, 175, 55, 0.5);
+  --accent-glow2: rgba(212, 175, 55, 0.8);
+
+  --text-primary: #EDE0C4;
+  --text-secondary: rgba(237, 224, 196, 0.6);
+  --text-muted: rgba(237, 224, 196, 0.35);
+  --text-inverse: #1a1200;
+
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(212, 175, 55, 0.2);
+  --card-border-subtle: rgba(212, 175, 55, 0.1);
+  --cell-bg: rgba(212, 175, 55, 0.05);
+  --cell-border: rgba(212, 175, 55, 0.35);
+  --cell-active: linear-gradient(135deg, #D4AF37, #9E7C1A);
+
+  --btn-primary-bg: linear-gradient(135deg, #D4AF37, #9E7C1A);
+  --btn-primary-shadow: rgba(212, 175, 55, 0.4);
+  --btn-secondary-bg: rgba(212, 175, 55, 0.08);
+  --btn-secondary-border: rgba(212, 175, 55, 0.25);
+
+  --shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  --glow: 0 0 30px rgba(212, 175, 55, 0.7), 0 0 60px rgba(212, 175, 55, 0.3);
+}
+
+/* ── 主题 3：深海幽光（深蓝紫） ── */
+[data-theme="abyssal"] {
+  --bg-gradient: radial-gradient(ellipse at 60% 10%, #0b0f2e 0%, #070b1e 50%, #020308 100%);
+  --bg-deco-1: rgba(99, 102, 241, 0.08);
+  --bg-deco-2: rgba(139, 92, 246, 0.08);
+  --bg-deco-3: rgba(7, 11, 30, 0.6);
+
+  --accent: #818CF8;
+  --accent-dark: #6366F1;
+  --accent-light: #A5B4FC;
+  --accent-glow: rgba(129, 140, 248, 0.55);
+  --accent-glow2: rgba(129, 140, 248, 0.9);
+
+  --text-primary: #E0E7FF;
+  --text-secondary: rgba(224, 231, 255, 0.6);
+  --text-muted: rgba(224, 231, 255, 0.35);
+  --text-inverse: #1e1b4b;
+
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(129, 140, 248, 0.2);
+  --card-border-subtle: rgba(129, 140, 248, 0.12);
+  --cell-bg: rgba(129, 140, 248, 0.07);
+  --cell-border: rgba(129, 140, 248, 0.4);
+  --cell-active: linear-gradient(135deg, #818CF8, #6366F1);
+
+  --btn-primary-bg: linear-gradient(135deg, #818CF8, #6366F1);
+  --btn-primary-shadow: rgba(99, 102, 241, 0.45);
+  --btn-secondary-bg: rgba(129, 140, 248, 0.1);
+  --btn-secondary-border: rgba(129, 140, 248, 0.3);
+
+  --shadow: 0 0 20px rgba(129, 140, 248, 0.5);
+  --glow: 0 0 30px rgba(129, 140, 248, 0.8), 0 0 60px rgba(99, 102, 241, 0.35);
+}
+
+/* ── 主题 4：松雾清境（墨绿银白禅意） ── */
+[data-theme="celadon"] {
+  --bg-gradient: radial-gradient(ellipse at 40% 60%, #0a1a14 0%, #07120f 50%, #030a07 100%);
+  --bg-deco-1: rgba(134, 187, 152, 0.07);
+  --bg-deco-2: rgba(100, 160, 120, 0.06);
+  --bg-deco-3: rgba(5, 15, 10, 0.5);
+
+  --accent: #86BB98;
+  --accent-dark: #5E9070;
+  --accent-light: #A8D4B8;
+  --accent-glow: rgba(134, 187, 152, 0.5);
+  --accent-glow2: rgba(134, 187, 152, 0.85);
+
+  --text-primary: #E8F0EA;
+  --text-secondary: rgba(232, 240, 234, 0.6);
+  --text-muted: rgba(232, 240, 234, 0.35);
+  --text-inverse: #0a1f12;
+
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(134, 187, 152, 0.2);
+  --card-border-subtle: rgba(134, 187, 152, 0.1);
+  --cell-bg: rgba(134, 187, 152, 0.07);
+  --cell-border: rgba(134, 187, 152, 0.38);
+  --cell-active: linear-gradient(135deg, #86BB98, #5E9070);
+
+  --btn-primary-bg: linear-gradient(135deg, #86BB98, #5E9070);
+  --btn-primary-shadow: rgba(134, 187, 152, 0.4);
+  --btn-secondary-bg: rgba(134, 187, 152, 0.1);
+  --btn-secondary-border: rgba(134, 187, 152, 0.28);
+
+  --shadow: 0 0 20px rgba(134, 187, 152, 0.45);
+  --glow: 0 0 30px rgba(134, 187, 152, 0.75), 0 0 60px rgba(94, 144, 112, 0.3);
+}
+
+/* ── 主题 5：樱雪白瓷（浅粉米白淡雅） ── */
+[data-theme="sakura"] {
+  --bg-gradient: radial-gradient(ellipse at 50% 0%, #1a0d12 0%, #120810 50%, #080408 100%);
+  --bg-deco-1: rgba(220, 160, 180, 0.07);
+  --bg-deco-2: rgba(200, 140, 165, 0.06);
+  --bg-deco-3: rgba(20, 5, 12, 0.5);
+
+  --accent: #E8A0B8;
+  --accent-dark: #C07090;
+  --accent-light: #F0C0D0;
+  --accent-glow: rgba(232, 160, 184, 0.52);
+  --accent-glow2: rgba(232, 160, 184, 0.88);
+
+  --text-primary: #FAF0F4;
+  --text-secondary: rgba(250, 240, 244, 0.62);
+  --text-muted: rgba(250, 240, 244, 0.38);
+  --text-inverse: #3d0a1c;
+
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(232, 160, 184, 0.22);
+  --card-border-subtle: rgba(232, 160, 184, 0.12);
+  --cell-bg: rgba(232, 160, 184, 0.07);
+  --cell-border: rgba(232, 160, 184, 0.4);
+  --cell-active: linear-gradient(135deg, #E8A0B8, #C07090);
+
+  --btn-primary-bg: linear-gradient(135deg, #E8A0B8, #C07090);
+  --btn-primary-shadow: rgba(192, 112, 144, 0.42);
+  --btn-secondary-bg: rgba(232, 160, 184, 0.1);
+  --btn-secondary-border: rgba(232, 160, 184, 0.28);
+
+  --shadow: 0 0 20px rgba(232, 160, 184, 0.48);
+  --glow: 0 0 30px rgba(232, 160, 184, 0.78), 0 0 60px rgba(192, 112, 144, 0.32);
+}
+
+/* ── 主题 6：赛博霓虹（深紫+青色未来感） ── */
+[data-theme="cyber"] {
+  --bg-gradient: radial-gradient(ellipse at 20% 80%, #0d0020 0%, #050010 50%, #000008 100%);
+  --bg-deco-1: rgba(0, 255, 255, 0.06);
+  --bg-deco-2: rgba(180, 0, 255, 0.06);
+  --bg-deco-3: rgba(0, 100, 120, 0.15);
+
+  --accent: #00FFFF;
+  --accent-dark: #00BABA;
+  --accent-light: #80FFFF;
+  --accent-glow: rgba(0, 255, 255, 0.55);
+  --accent-glow2: rgba(0, 255, 255, 0.9);
+
+  --text-primary: #E0FFFF;
+  --text-secondary: rgba(224, 255, 255, 0.62);
+  --text-muted: rgba(224, 255, 255, 0.35);
+  --text-inverse: #001a1a;
+
+  --card-bg: rgba(0, 255, 255, 0.04);
+  --card-border: rgba(0, 255, 255, 0.2);
+  --card-border-subtle: rgba(0, 255, 255, 0.1);
+  --cell-bg: rgba(0, 255, 255, 0.06);
+  --cell-border: rgba(0, 255, 255, 0.4);
+  --cell-active: linear-gradient(135deg, #00FFFF, #00BABA);
+
+  --btn-primary-bg: linear-gradient(135deg, #00FFFF, #00BABA);
+  --btn-primary-shadow: rgba(0, 255, 255, 0.45);
+  --btn-secondary-bg: rgba(0, 255, 255, 0.1);
+  --btn-secondary-border: rgba(0, 255, 255, 0.3);
+
+  --shadow: 0 0 20px rgba(0, 255, 255, 0.55);
+  --glow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 60px rgba(180, 0, 255, 0.4);
+}
+
+/* =============================================
+   全局基础样式
+   ============================================= */
 *,
 *::before,
 *::after {
@@ -33,20 +227,44 @@ html {
 }
 
 body {
-  background: radial-gradient(ellipse at top, #CC0000 0%, #8B0000 50%, #4A0000 100%);
+  background: var(--bg-gradient);
   min-height: 100vh;
-  color: var(--lottery-white);
+  color: var(--text-primary);
+  transition: background 0.6s ease, color 0.4s ease;
 }
 
-/* 金色粒子背景装饰 */
+/* 背景动态装饰层（可通过 .no-fx 开关控制） */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image:
-    radial-gradient(circle at 20% 80%, rgba(244, 196, 48, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(244, 196, 48, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.3) 0%, transparent 70%);
+    radial-gradient(circle at 20% 80%, var(--bg-deco-1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, var(--bg-deco-2) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, var(--bg-deco-3) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  animation: deco-drift 12s ease-in-out infinite alternate;
+}
+
+/* 动态效果关闭（通过 body 的 class 控制） */
+body.no-fx::before {
+  animation: none;
+  opacity: 0.5;
+}
+
+@keyframes deco-drift {
+  0% {
+    transform: scale(1) translateX(0) translateY(0);
+  }
+
+  50% {
+    transform: scale(1.05) translateX(12px) translateY(-8px);
+  }
+
+  100% {
+    transform: scale(1.02) translateX(-8px) translateY(12px);
+  }
 }

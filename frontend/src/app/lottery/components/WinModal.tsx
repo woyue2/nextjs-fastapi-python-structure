@@ -3,6 +3,7 @@
 // [INPUT]     prize: Prize | null, onClose: () => void
 // [OUTPUT]    中奖弹窗，AnimatePresence 弹出动画
 // [POS]       frontend/src/app/lottery/components/WinModal.tsx
+// [PROTOCOL]  变更时更新此头部，然后检查 frontend/CLAUDE.md
 // [DEPS]      framer-motion, store
 // ==============================================================
 'use client';

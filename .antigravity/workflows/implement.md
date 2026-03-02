@@ -85,11 +85,6 @@ CommandLine: git diff --name-only HEAD
 ```yaml
 新建文件:
   ✅ 按 design.md 推荐方案新建所需文件
-  ✅ 文件顶部插入 L3 契约注释（见 bootstrap.md 格式）
-  ✅ 每个函数/组件只做一件事
-
-新建文件:
-  ✅ 按 design.md 推荐方案新建所需文件
   ✅ 文件顶部 **必须** 插入 L3 契约头部（否则触发 FATAL-002）：
      ```ts
      /**
@@ -238,8 +233,8 @@ CommandLine: grep -rn "console\.log" frontend/src --include="*.tsx" --include="*
 ### 🔍 后端检查（涉及 backend/ 时执行）
 
 // turbo
-**Q4: Python 语法检查（所有改动文件）**
-CommandLine: python -m py_compile backend/main.py 2>&1 && echo "[OK] syntax pass"
+**Q4: Python 语法检查（所有 .py 文件）**
+CommandLine: find backend/ -name "*.py" -exec python -m py_compile {} + 2>&1 && echo "[OK] syntax pass"
 
 // turbo
 **Q5: 扫描裸 print（生产禁用）**
@@ -253,12 +248,12 @@ CommandLine: grep -rn "^\s*print(" backend/ --include="*.py"
 ### 🔍 GEB 文档检查（每次必执行）
 
 // turbo
-**Q6: 查看本次变更文件清单**
-CommandLine: git diff --name-only HEAD
+**Q6: 查看本次变更文件清单（含未暂存的新文件）**
+CommandLine: git diff --name-only HEAD && git ls-files --others --exclude-standard
 
 // turbo
-**Q7: 检查是否有新建文件缺少 L3 头部**
-CommandLine: git diff --name-only HEAD | findstr /i ".tsx .ts .py"
+**Q7: 筛选需要 L3 头部检查的代码文件**
+CommandLine: (git diff --name-only HEAD && git ls-files --others --exclude-standard) | grep -E "\.(tsx|ts|py)$"
 
 > 对照 Q7 的输出，逐文件确认：
 > - ✅ 有 `[INPUT]/[OUTPUT]/[POS]/[PROTOCOL]` 头部 → FATAL-002 通过
@@ -270,12 +265,54 @@ CommandLine: git log -1 --format="%ar" -- frontend/CLAUDE.md backend/CLAUDE.md 2
 
 > Q8 输出时间 > 当前改动时间 → 需要更新 L2 文档（SEVERE-002 / FATAL-003）
 
+// turbo
+**Q9: 检查 L1 根 CLAUDE.md 最后更新时间（⚠️ 最容易被遗忘的 SEVERE-003）**
+CommandLine: git log -1 --format="%ar %s" -- CLAUDE.md
+
+// turbo
+**Q9b: 对照实际目录结构（看是否有新目录未录入 CLAUDE.md）**
+CommandLine: Get-ChildItem -Path . -Directory -Depth 0 | Select-Object -ExpandProperty Name
+
+> **Q9 判断规则（逐一核对）**：
+> 对比 Q9b 的实际目录列表 vs `CLAUDE.md` 里目录结构图的条目：
+> - 有新目录未在 CLAUDE.md 里出现 → **SEVERE-003，触发 Q10**
+> - 有目录描述过时 → **SEVERE-003，触发 Q10**
+> - 全部一致 → ✅ L1 通过，跳过 Q10
+
+---
+
+### ⛔ Q10: GEB 正向流强制修复（检测到 L1/L2 过时时执行，不是可选的）
+
+> **谁来守护 CLAUDE.md？—— Q10。**
+> 检测（Q6-Q9）发现问题后，如果不修复就输出报告，等于协议失效。
+> Q10 是"牙齿"：检测到即修复，修复完才能继续。
+
+```
+Q10 触发条件（任一命中即执行）：
+  - Q8 显示 L2 文档早于本次代码改动 → 更新 L2
+  - Q9 显示 L1 目录结构不一致 → 更新 L1
+  - Q7 显示有新文件缺少 L3 头部 → 补写 L3
+
+Q10 执行动作（不是建议，是强制写操作）：
+  1. 立即打开对应的 CLAUDE.md 或文件头部
+  2. 执行更新（目录结构/成员清单/L3 头部）
+  3. 更新完成后，在报告中标注：
+     "✅ Q10 已修复：[列出修复的文件和内容]"
+
+Q10 未执行时的阻塞规则：
+  - 如果 Q8/Q9 检测到问题，但 Q10 没有执行修复：
+    → 报告状态标记为 ⛔ BLOCKED（不是 ✅）
+    → 禁止输出"实现完成"
+    → 禁止进入 /git_commit
+```
+
 ---
 
 ### 📋 自检报告输出规则
 
-以上 Q1-Q8 **全部执行完毕后**，按实际命令输出填写下方报告模板。
+以上 Q1-Q10 **全部执行完毕后**，按实际命令输出填写下方报告模板。
 **不允许填写未执行命令的结果（即不能凭感觉填 ✅）。**
+**如果 Q10 被触发但未执行修复，报告状态必须为 ⛔ BLOCKED。**
 
 ---
 
@@ -306,18 +343,18 @@ CommandLine: git log -1 --format="%ar" -- frontend/CLAUDE.md backend/CLAUDE.md 2
   3. [如何判断成功]
 
 ---
-🔍【内联质量检查报告】（由 impl_quality Skill 自动执行）
+🔍【内联质量检查报告】（基于 Q1-Q10 命令实际输出填写，禁止凭感觉填 ✅）
 
-代码品味:
+代码品味（Q1-Q3 前端 / Q4-Q5 后端）:
   □/✅ 函数长度(≤20行)   □/✅ 嵌套深度(≤3层)   □/✅ 分支数(≤3个)
   □/✅ 重复代码           □/✅ 命名质量           □/✅ 副作用隔离
 
-后端规范（如涉及 backend/）:
-  □/✅ 路由层无业务逻辑   □/✅ 日志结构化(无裸print)   □/✅ 异常有堆栈
-
-GEB 文档:
+GEB 文档（Q6-Q9 检测 + Q10 修复）:
   FATAL: □ 001 □ 002 □ 003 □ 004  → [全通过 / 编号拦截]
-  SEVERE: □ 001 □ 002 □ 003 □ 004 → [全通过 / 编号需修复]
+  SEVERE: □ 001 □ 002 □ 003 □ 004 → [全通过 / 编号已由Q10修复]
+
+Q10 修复记录:
+  [未触发 / ✅ 已修复：列出修改的文件 / ⛔ BLOCKED：未修复，禁止继续]
 
 已同步文档: [列表或"无变化"]
 ---

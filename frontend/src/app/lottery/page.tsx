@@ -1,9 +1,10 @@
 // ==============================================================
 // [COMPONENT] LotteryPage (Client shell)
 // [INPUT]     none
-// [OUTPUT]    完整抽奖页面：九宫格 + 按钮栏 + 三个弹窗
+// [OUTPUT]    完整抽奖页面：九宫格 + 按钮栏 + 三个弹窗 + 主题切换器
 // [POS]       frontend/src/app/lottery/page.tsx
-// [DEPS]      LotteryGrid, WinModal, RedeemModal, RecordModal, store
+// [PROTOCOL]  变更时更新此头部，然后检查 frontend/CLAUDE.md
+// [DEPS]      LotteryGrid, WinModal, RedeemModal, RecordModal, store, ThemeSwitcher
 // ==============================================================
 'use client';
 
@@ -16,9 +17,9 @@ const LotteryGrid = dynamic(() => import('./components/LotteryGrid'), { ssr: fal
 const WinModal = dynamic(() => import('./components/WinModal'), { ssr: false });
 const RedeemModal = dynamic(() => import('./components/RedeemModal'), { ssr: false });
 const RecordModal = dynamic(() => import('./components/RecordModal'), { ssr: false });
+const ThemeSwitcher = dynamic(() => import('./components/ThemeSwitcher'), { ssr: false });
 
 export default function LotteryPage() {
-    // [IMPL] 原因: 新增 prizes、updatePrizes、setAdminChances 解构，支持后台修改后即时生效
     const { chances, records, mounted, prizes, redeemCode, spendChance, addRecord } = useLotteryStore();
 
     const [winPrize, setWinPrize] = useState<Prize | null>(null);
@@ -44,30 +45,32 @@ export default function LotteryPage() {
                 <div style={{ fontSize: 52, marginBottom: 8 }}>🎡</div>
                 <h1 style={{
                     fontFamily: 'Noto Serif SC', fontWeight: 700,
-                    fontSize: 32, color: '#F4C430',
-                    textShadow: '0 2px 12px rgba(244,196,48,0.6)',
+                    fontSize: 32, color: 'var(--accent)',
+                    textShadow: '0 2px 12px var(--accent-glow)',
                     letterSpacing: 4,
+                    transition: 'color 0.4s, text-shadow 0.4s',
                 }}>
                     幸运福利抽奖
                 </h1>
-                <p style={{ color: 'rgba(255,248,238,0.65)', fontSize: 13, marginTop: 6 }}>
+                <p style={{ color: 'var(--text-secondary)', fontSize: 13, marginTop: 6, transition: 'color 0.4s' }}>
                     使用兑换码获取抽奖机会，好运连连 🍀
                 </p>
             </div>
 
             {/* 主转盘区 */}
             <div style={{
-                background: 'rgba(0,0,0,0.25)',
+                background: 'var(--card-bg)',
                 backdropFilter: 'blur(12px)',
                 borderRadius: 28,
-                border: '1px solid rgba(244,196,48,0.25)',
+                border: '1px solid var(--card-border)',
                 padding: '28px 24px',
                 boxShadow: '0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
+                transition: 'border-color 0.4s',
             }}>
                 {mounted ? (
                     <LotteryGrid
                         chances={chances}
-                        prizes={prizes}  // [IMPL] 原因: 传入可被后台覆盖的奖品集
+                        prizes={prizes}
                         onSpin={handleSpin}
                         onWin={handleWin}
                     />
@@ -76,7 +79,7 @@ export default function LotteryPage() {
                     <div style={{
                         width: 332, height: 332,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: 'rgba(255,248,238,0.4)', fontSize: 14,
+                        color: 'var(--text-muted)', fontSize: 14,
                     }}>
                         加载中…
                     </div>
@@ -90,7 +93,6 @@ export default function LotteryPage() {
             }}>
                 <ActionBtn icon="🎟️" label="兑换次数" onClick={() => setShowRedeem(true)} primary />
                 <ActionBtn icon="📋" label="中奖记录" onClick={() => setShowRecord(true)} />
-                {/* [IMPL] 原因: 后台管理入口，低调样式避免误操作 */}
                 <ActionBtn icon="⚙️" label="后台管理" onClick={() => window.location.href = '/admin'} />
             </div>
 
@@ -99,9 +101,10 @@ export default function LotteryPage() {
                 marginTop: 32, padding: '16px 24px',
                 background: 'rgba(0,0,0,0.2)',
                 borderRadius: 14, maxWidth: 360,
-                border: '1px solid rgba(244,196,48,0.15)',
+                border: '1px solid var(--card-border-subtle)',
+                transition: 'border-color 0.4s',
             }}>
-                <p style={{ color: 'rgba(255,248,238,0.55)', fontSize: 12, textAlign: 'center', lineHeight: 1.8 }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: 12, textAlign: 'center', lineHeight: 1.8, transition: 'color 0.4s' }}>
                     测试兑换码：LUCKY001 / LUCKY002 / STAR777<br />
                     每个兑换码仅可使用一次 · 中奖结果本地保存
                 </p>
@@ -111,6 +114,9 @@ export default function LotteryPage() {
             <WinModal prize={winPrize} onClose={() => setWinPrize(null)} />
             <RedeemModal isOpen={showRedeem} onClose={() => setShowRedeem(false)} onRedeem={redeemCode} />
             <RecordModal isOpen={showRecord} onClose={() => setShowRecord(false)} records={records} />
+
+            {/* 主题切换器（右下角浮动面板） */}
+            <ThemeSwitcher />
         </main>
     );
 }
@@ -124,17 +130,17 @@ function ActionBtn({
             onClick={onClick}
             style={{
                 background: primary
-                    ? 'linear-gradient(135deg, #F4C430, #FF8C00)'
-                    : 'rgba(255,255,255,0.12)',
-                color: primary ? '#5A2D00' : 'rgba(255,248,238,0.9)',
-                border: primary ? 'none' : '1px solid rgba(244,196,48,0.3)',
+                    ? 'var(--btn-primary-bg)'
+                    : 'var(--btn-secondary-bg)',
+                color: primary ? 'var(--text-inverse)' : 'var(--text-primary)',
+                border: primary ? 'none' : `1px solid var(--btn-secondary-border)`,
                 borderRadius: 50,
                 padding: '12px 28px',
                 fontSize: 14, fontWeight: 700,
                 cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: 6,
-                boxShadow: primary ? '0 6px 20px rgba(244,196,48,0.45)' : 'none',
-                transition: 'transform 0.15s, opacity 0.15s',
+                boxShadow: primary ? `0 6px 20px var(--btn-primary-shadow)` : 'none',
+                transition: 'transform 0.15s, opacity 0.15s, background 0.4s, box-shadow 0.4s',
                 backdropFilter: 'blur(8px)',
             }}
             onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-2px)')}

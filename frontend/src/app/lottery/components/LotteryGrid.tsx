@@ -3,6 +3,7 @@
 // [INPUT]     chances: number, spendChance/addRecord from store
 // [OUTPUT]    3×3 九宫格转盘 + 动画逻辑
 // [POS]       frontend/src/app/lottery/components/LotteryGrid.tsx
+// [PROTOCOL]  变更时更新此头部，然后检查 frontend/CLAUDE.md
 // [DEPS]      framer-motion, store
 // ==============================================================
 'use client';
@@ -118,20 +119,20 @@ export default function LotteryGrid({ chances, prizes, onSpin, onWin }: Props) {
                                 style={{
                                     background: spinning || chances <= 0
                                         ? 'linear-gradient(135deg, #888, #aaa)'
-                                        : 'linear-gradient(135deg, #F4C430, #FF8C00)',
+                                        : 'var(--btn-primary-bg)',
                                     border: 'none', borderRadius: 14,
                                     cursor: spinning || chances <= 0 ? 'not-allowed' : 'pointer',
                                     display: 'flex', flexDirection: 'column',
                                     alignItems: 'center', justifyContent: 'center',
                                     boxShadow: spinning || chances <= 0
                                         ? 'none'
-                                        : '0 0 20px rgba(244,196,48,0.7)',
-                                    transition: 'background 0.3s',
+                                        : 'var(--shadow)',
+                                    transition: 'background 0.4s, box-shadow 0.4s',
                                 }}
                             >
                                 <span style={{ fontSize: 28 }}>🎰</span>
                                 <span style={{
-                                    color: '#5A2D00', fontWeight: 800, fontSize: 15,
+                                    color: 'var(--text-inverse)', fontWeight: 800, fontSize: 15,
                                     fontFamily: 'Noto Serif SC',
                                     textShadow: '0 1px 2px rgba(255,255,255,0.5)',
                                 }}>
@@ -146,28 +147,29 @@ export default function LotteryGrid({ chances, prizes, onSpin, onWin }: Props) {
                         <motion.div
                             key={cellIdx}
                             animate={isActive ? {
-                                background: 'linear-gradient(135deg, #F4C430, #FF8C00)',
-                                boxShadow: '0 0 24px rgba(244,196,48,0.9)',
+                                boxShadow: 'var(--glow)',
                                 scale: 1.06,
                             } : {
-                                background: 'rgba(255,255,255,0.08)',
                                 boxShadow: 'none',
                                 scale: 1,
                             }}
                             transition={{ duration: 0.12 }}
                             style={{
                                 borderRadius: 14,
-                                border: `2px solid ${isActive ? '#F4C430' : 'rgba(244,196,48,0.35)'}`,
+                                border: isActive ? `2px solid var(--accent)` : `2px solid var(--cell-border)`,
+                                background: isActive ? 'var(--cell-active)' : 'var(--cell-bg)',
                                 display: 'flex', flexDirection: 'column',
                                 alignItems: 'center', justifyContent: 'center',
                                 gap: 4, padding: 4, overflow: 'hidden',
+                                transition: 'border-color 0.4s, background 0.4s',
                             }}
                         >
                             <span style={{ fontSize: 28 }}>{prize?.icon}</span>
                             <span style={{
                                 fontSize: 11, fontWeight: 600, lineHeight: 1.2,
-                                color: isActive ? '#5A2D00' : 'rgba(255,248,238,0.9)',
+                                color: isActive ? 'var(--text-inverse)' : 'var(--text-primary)',
                                 textAlign: 'center', whiteSpace: 'pre-wrap',
+                                transition: 'color 0.4s',
                             }}>
                                 {prize?.name}
                             </span>
@@ -178,8 +180,9 @@ export default function LotteryGrid({ chances, prizes, onSpin, onWin }: Props) {
 
             {/* 次数提示 */}
             <p style={{
-                color: 'rgba(255,248,238,0.75)', fontSize: 13,
+                color: 'var(--text-secondary)', fontSize: 13,
                 textAlign: 'center', marginTop: 4,
+                transition: 'color 0.4s',
             }}>
                 {chances <= 0
                     ? '👆 点击「兑换次数」获取抽奖机会'

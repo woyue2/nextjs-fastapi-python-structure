@@ -2,7 +2,7 @@
 name: geb_protocol
 description: |
   GEB 分形文档协议 + 系统身份锚定。
-  每次对话自动激活，无需 /load_context。
+  需通过 /load_context 或相关 Workflow 显式读取后激活。
   包含：身份、认知架构、设计哲学、质量红线、坏味道识别、GEB 三层协议。
 ---
 

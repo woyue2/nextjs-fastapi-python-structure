@@ -19,17 +19,24 @@ FastAPI 后端，负责业务逻辑、数据处理与 REST API 暴露。
 
 ## 路由文件（routers/）
 
-_（尚无子路由文件，待添加后更新）_
+_（当前集中在入口文件，后续可拆分为 routers/）_
 
 | 文件 | 前缀 | 说明 |
 |------|------|------|
-| `main.py` | `/api/health` | 入口 + 健康检查 |
+| `main.py` | `/api/health` | 健康检查 |
+| `main.py` | `/api/records` | 抽奖记录查询（GET，支持 limit/offset） |
+| `main.py` | `/api/records` | 抽奖记录写入（POST，内存存储） |
 
 ---
 
 ## 数据模型（models/ / schemas/）
 
-_（尚无数据模型，待添加后更新）_
+当前使用 `main.py` 内联 Pydantic Schema（后续可拆分）：
+
+- `PrizeSchema`：奖品信息
+- `RecordCreateSchema`：新增中奖记录请求体
+- `RecordSchema`：中奖记录实体
+- `RecordListResponse`：中奖记录查询响应体
 
 ---
 
@@ -53,11 +60,11 @@ backend/.venv/Scripts/uvicorn main:app --reload --port 8000
 
 ```
 backend/
-├── main.py              — FastAPI 入口 + CORS + 健康检查
+├── main.py              — FastAPI 入口 + CORS + 健康检查 + 抽奖记录 API
 ├── requirements.txt     — pip freeze 生成
 └── .venv/               — Python 虚拟环境（不提交 git）
 ```
 
 ---
 
-_Last updated: 2026-03-02_
+_Last updated: 2026-03-03_

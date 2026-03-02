@@ -21,6 +21,17 @@ description: 方案设计 — 功能设计 或 Bug 修复设计（≥3 方案对
 
 ---
 
+## 先决后开：Step 0 — 加载 oop_phase Skill（⚠️ 最先执行，不可跳过）
+
+> 三期设计约束（探索期/增长期/冻结期）必须在方案设计开始前进入上下文。
+> 若跳过，方案设计将缺少阶段约束，可能推荐出不符合当前项目阶段的技术路线。
+
+// turbo
+**Step 0: 加载 oop_phase Skill（提出任何方案之前）**
+CommandLine: type .antigravity\skills\oop_phase\SKILL.md
+
+---
+
 ## 阶段A：获取上下文
 
 ### 功能模式
@@ -174,9 +185,9 @@ description: 方案设计 — 功能设计 或 Bug 修复设计（≥3 方案对
 ## 与其他工作流的关系
 
 ```
-功能开发链:
-  analyze.md → design.md（功能模式）→ 实现 → sync_doc.md → git_commit.md
+功能开发链（4 回合）:
+  analyze → design → implement（内联 review+sync_doc）→ git_commit
 
-Bug 修复链:
-  debug.md → design.md（修复模式）→ 实现 → sync_doc.md → git_commit.md
+Bug 修复链（4 回合）:
+  debug → design fix → implement（内联 review+sync_doc）→ git_commit
 ```

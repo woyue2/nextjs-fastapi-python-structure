@@ -3,6 +3,7 @@
 // [INPUT]     isOpen: boolean, onClose: () => void, onRedeem: (code) => {ok, msg}
 // [OUTPUT]    兑换码输入弹窗
 // [POS]       frontend/src/app/lottery/components/RedeemModal.tsx
+// [PROTOCOL]  变更时更新此头部，然后检查 frontend/CLAUDE.md
 // [DEPS]      framer-motion
 // ==============================================================
 'use client';

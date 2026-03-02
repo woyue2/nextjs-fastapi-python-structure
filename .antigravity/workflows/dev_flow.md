@@ -5,10 +5,10 @@ description: 开发主干流程 — 混合架构（3 Skill + 5 Workflow，速度
 ## 架构概览
 
 ```
-Skills（内置进大脑，对话级自动生效）:
-  ├── geb_protocol   ← 身份 + 哲学 + GEB 协议（替代 load_context）
-  ├── oop_phase      ← 三期设计约束（探索/增长/冻结）
-  └── impl_quality   ← 实现质量内联（review + sync_doc 自动内嵌）
+Skills（需显式读取才能生效，不会自动激活）:
+  ├── geb_protocol   ← 身份 + 哲学 + GEB 协议
+  ├── oop_phase      ← 三期设计约束（探索/增长/冻结）← /design 开始前读取
+  └── impl_quality   ← 实现质量内联（review + sync_doc 自动内嵌）← /implement 开始前读取
 
 Workflows（需要人工决策的节点，保留为手册）:
   ├── analyze        ← 你确认需求理解
@@ -115,9 +115,9 @@ Workflows（需要人工决策的节点，保留为手册）:
 
 | Skill | 路径 | 生效方式 | 作用 |
 |-------|------|---------|------|
-| `geb_protocol` | `.antigravity/skills/geb_protocol/SKILL.md` | 对话级自动内置 | 身份 + GEB 协议（替代 /load_context） |
-| `oop_phase`    | `.antigravity/skills/oop_phase/SKILL.md`    | 设计时自动触发 | 三期设计约束 |
-| `impl_quality` | `.antigravity/skills/impl_quality/SKILL.md` | implement 末尾自动执行 | 品味自检 + GEB 文档 + 后端规范 |
+| `geb_protocol` | `.antigravity/skills/geb_protocol/SKILL.md` | **需显式读取**（手动调用） | 身份 + GEB 协议 |
+| `oop_phase`    | `.antigravity/skills/oop_phase/SKILL.md`    | **需显式读取**（design Step 0 强制执行） | 三期设计约束 |
+| `impl_quality` | `.antigravity/skills/impl_quality/SKILL.md` | **需显式读取**（implement Step 0 强制执行） | 品味自检 + GEB 文档 + 后端规范 |
 
 ---
 
