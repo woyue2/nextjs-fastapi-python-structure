@@ -6,7 +6,7 @@
  */
 'use client';
 
-import { type Prize, type PrizeType } from '../../lottery/store';
+import { type Prize, type PrizeType } from '@/lib/types';
 
 interface Props {
     prizes: Prize[];

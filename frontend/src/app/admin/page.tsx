@@ -9,7 +9,8 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useLotteryStore, type Prize } from '../lottery/store';
+import { useLotteryStore } from '@/hooks/useLotteryStore';
+import { type Prize } from '@/lib/types';
 
 // 动态导入避免 SSR（依赖 localStorage）
 const PrizeEditor = dynamic(() => import('./components/PrizeEditor'), { ssr: false });

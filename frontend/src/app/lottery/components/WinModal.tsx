@@ -9,7 +9,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { type Prize } from '../store';
+import { type Prize } from '@/lib/types';
 
 interface Props {
     prize: Prize | null;

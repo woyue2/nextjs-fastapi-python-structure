@@ -4,7 +4,13 @@
  * [POS]:      frontend/src/app/page.tsx — 路由 /
  * [PROTOCOL]: 变更时更新此头部，然后检查 frontend/CLAUDE.md
  */
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: '幸运福利抽奖 · Anti-Huihuan',
+  description: '本地化抽奖系统 — 使用兑换码获取抽奖机会',
+};
 
 export default function Home() {
   return (

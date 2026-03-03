@@ -18,12 +18,14 @@
 
 ```
 anti-huihuan-kaifa/
-├── frontend/          — Next.js 前端（App Router · src/app/）
-├── backend/           — FastAPI 后端（Uvicorn · Python venv）
-├── .antigravity/      — 项目配置与 AI 工作流
-│   ├── config.yaml        身份锚定 + GEB 协议全局配置
-│   └── workflows/         工作流脚本（bootstrap / sync_doc 等）
-├── CLAUDE.md          — L1 根文档（本文件）
+├── frontend/              — Next.js 前端（App Router · src/app/ + lib/ + hooks/）
+├── backend/               — FastAPI 后端（app/api/v1/ · app/services/ · app/schemas/）
+├── docs/                  — 项目文档
+├── .antigravity/          — 项目配置与 AI 工作流
+│   ├── config.yaml            身份锚定 + GEB 协议全局配置
+│   └── workflows/             工作流脚本（bootstrap / sync_doc 等）
+├── CLAUDE.md              — L1 根文档（本文件）
+├── 前后端目录规范.md       — 前后端目录规范检查参照
 └── .gitignore
 ```
 
@@ -32,7 +34,7 @@ anti-huihuan-kaifa/
 ## 开发约定
 
 - **前端路由**：App Router，入口 `frontend/src/app/`
-- **API 前缀**：所有接口均以 `/api/` 开头
+- **API 前缀**：所有接口均以 `/api/v1/` 开头
 - **前后端通信**：开发期前端 `localhost:3000` → 后端 `localhost:8000`
 - **环境变量**：`.env.local`（前端）、`.env`（后端），均加入 `.gitignore`
 - **命名规范**：
@@ -57,4 +59,4 @@ anti-huihuan-kaifa/
 
 ---
 
-_Last updated: 2026-03-02_
+_Last updated: 2026-03-03 (目录重构：backend 分层化 + frontend lib/hooks 提取 + API v1 前缀)_

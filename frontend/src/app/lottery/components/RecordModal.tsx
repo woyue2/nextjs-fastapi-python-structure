@@ -9,7 +9,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { type WinRecord } from '../store';
+import { type WinRecord } from '@/lib/types';
 
 interface Props {
     isOpen: boolean;

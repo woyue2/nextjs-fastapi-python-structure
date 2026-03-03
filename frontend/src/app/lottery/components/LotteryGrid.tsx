@@ -10,7 +10,8 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { PRIZES, weightedRandom, type Prize } from '../store';
+import { type Prize } from '@/lib/types';
+import { weightedRandom } from '@/hooks/useLotteryStore';
 
 // 顺时针外圈顺序：左上↗上中↗右上↘右中↘右下↙下中↙左下↖左中
 const CLOCKWISE = [0, 1, 2, 3, 4, 5, 6, 7];
