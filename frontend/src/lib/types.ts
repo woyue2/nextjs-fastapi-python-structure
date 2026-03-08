@@ -1,23 +1,26 @@
 /**
  * [INPUT]:    无
- * [OUTPUT]:   Prize, WinRecord, PrizeType 等共享类型
+ * [OUTPUT]:   Item, ItemType 等共享类型定义
  * [POS]:      frontend/src/lib/types.ts — 全局类型定义
  * [PROTOCOL]: 变更时更新此头部，然后检查 frontend/CLAUDE.md
+ *
+ * NOTE: 这是一个模板示例。请将 Item / ItemType 替换为你自己的业务类型。
  */
 
-export type PrizeType = 'cash' | 'goods' | 'none';
+/** 示例枚举：资源分类 */
+export type ItemType = 'typeA' | 'typeB' | 'other';
 
-export interface Prize {
+/** 示例接口：核心资源 */
+export interface Item {
     id: number;
     name: string;
-    desc: string;
-    odds: number;   // 中奖权重（越大越容易中）
-    icon: string;
-    type: PrizeType;
+    description: string;
+    type: ItemType;
 }
 
-export interface WinRecord {
+/** 示例接口：带时间戳的记录 */
+export interface ItemRecord {
     id: string;
-    prize: Prize;
-    time: string;   // ISO 字符串
+    item: Item;
+    createdAt: string;   // ISO 字符串
 }

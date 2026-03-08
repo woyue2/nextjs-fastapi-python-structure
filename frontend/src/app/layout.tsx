@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "幸运福利抽奖 · Anti-Huihuan",
-  description: "本地化抽奖系统 — 使用兑换码获取抽奖机会，好运连连",
+  title: "My App · Next.js + FastAPI",
+  description: "Next.js (App Router) + FastAPI 全栈项目模板",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="zh">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>

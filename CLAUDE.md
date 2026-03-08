@@ -1,4 +1,4 @@
-# anti-huihuan-kaifa · L1 Root
+# nextjs-fastapi-python-structure · L1 Root
 
 > **[PROTOCOL]**: 本文档为 GEB 分形文档 L1 层（项目宪法），任何目录结构或技术栈变更必须同步更新本文件。
 
@@ -17,15 +17,46 @@
 ## 目录结构
 
 ```
-anti-huihuan-kaifa/
-├── frontend/              — Next.js 前端（App Router · src/app/ + lib/ + hooks/）
-├── backend/               — FastAPI 后端（app/api/v1/ · app/services/ · app/schemas/）
-├── docs/                  — 项目文档
-├── .antigravity/          — 项目配置与 AI 工作流
-│   ├── config.yaml            身份锚定 + GEB 协议全局配置
-│   └── workflows/             工作流脚本（bootstrap / sync_doc 等）
-├── CLAUDE.md              — L1 根文档（本文件）
-├── 前后端目录规范.md       — 前后端目录规范检查参照
+nextjs-fastapi-python-structure/          ← 项目根
+├── frontend/                             — Next.js 前端（App Router）
+│   └── src/
+│       ├── app/
+│       │   ├── layout.tsx                — 全局布局
+│       │   ├── page.tsx                  — 首页导航（/）
+│       │   ├── feature/                  — 主功能路由（/feature）⬅ 替换为你的业务路由
+│       │   │   ├── page.tsx
+│       │   │   ├── error.tsx
+│       │   │   ├── loading.tsx
+│       │   │   └── components/           — 路由私有组件
+│       │   │       └── ItemCard.tsx      — 示例组件
+│       │   └── admin/                    — 管理后台路由（/admin）
+│       │       └── page.tsx
+│       ├── hooks/
+│       │   └── useAppStore.ts            — 全局状态 Hook（示例）
+│       └── lib/
+│           ├── types.ts                  — 全局类型定义
+│           ├── constants.ts              — 全局常量
+│           ├── api.ts                    — API 通信层
+│           └── storage.ts               — SSR 安全 localStorage 封装
+├── backend/                              — FastAPI 后端
+│   └── app/
+│       ├── main.py                       — 服务入口（挂载路由 + CORS）
+│       ├── core/config.py                — 全局配置常量
+│       ├── api/v1/
+│       │   ├── router.py                 — /api/v1 路由汇总
+│       │   └── endpoints/
+│       │       ├── health.py             — GET /health
+│       │       ├── hello.py              — GET /hello（演示）
+│       │       └── items.py              — GET/POST /items（示例资源）
+│       ├── schemas/item.py               — Pydantic 请求/响应模型
+│       ├── services/item_service.py      — 业务逻辑层（内存存储示例）
+│       ├── models/                       — ORM 模型（预留，接入 DB 时使用）
+│       ├── db/                           — 数据库连接（预留）
+│       └── dependencies/                 — FastAPI 依赖注入（预留）
+├── docs/                                 — 项目文档
+├── .antigravity/                         — AI 工作流配置
+├── CLAUDE.md                             — L1 根文档（本文件）
+├── 前后端目录规范.md                      — 目录规范参照
 └── .gitignore
 ```
 
@@ -59,4 +90,4 @@ anti-huihuan-kaifa/
 
 ---
 
-_Last updated: 2026-03-03 (目录重构：backend 分层化 + frontend lib/hooks 提取 + API v1 前缀)_
+_Last updated: 2026-03-08 (模板化重构：业务代码清除 → 通用脚手架结构，remote 指向 nextjs-fastapi-python-structure)_

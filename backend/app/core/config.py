@@ -6,8 +6,8 @@
 """
 from __future__ import annotations
 
-APP_TITLE = "Anti-Huihuan API"
-APP_VERSION = "0.2.0"
+APP_TITLE = "My App API"
+APP_VERSION = "0.1.0"
 
 CORS_ORIGINS: list[str] = [
     "http://localhost:3000",
